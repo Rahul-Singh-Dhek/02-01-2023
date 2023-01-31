@@ -1,4 +1,4 @@
-package com.example.MultiTenent.configurations;
+package com.example.MultiTenent.unitTest.configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;

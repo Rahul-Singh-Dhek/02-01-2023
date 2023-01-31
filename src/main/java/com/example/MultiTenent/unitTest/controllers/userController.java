@@ -1,10 +1,11 @@
-package com.example.MultiTenent.controllers;
+package com.example.MultiTenent.unitTest.controllers;
 
-import com.example.MultiTenent.Models.Model1;
-import com.example.MultiTenent.Repositorys.db1Repository.db1Repository;
-import com.example.MultiTenent.Repositorys.db2Repository.db2Repository;
-import com.example.MultiTenent.Services.userService;
+import com.example.MultiTenent.unitTest.Models.Model1;
+import com.example.MultiTenent.unitTest.Repositorys.db1Repository.db1Repository;
+import com.example.MultiTenent.unitTest.Repositorys.db2Repository.db2Repository;
+import com.example.MultiTenent.unitTest.Services.userService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class userController {
     private userService service;
 
     @PostMapping("/create/{DBno}")
-    public ResponseEntity<?> createUser(@PathVariable int DBno , @RequestBody Model1 obj){
+    public ResponseEntity<Model1> createUser(@PathVariable int DBno , @RequestBody Model1 obj){
 //        Model1 obj1;
 //        try {
 //
@@ -38,7 +39,7 @@ public class userController {
 //            return ResponseEntity.status(HttpStatus.OK).body("Please provide unique userName");
 //        }
 //        return ResponseEntity.status(HttpStatus.OK).body(obj1);
-        return service.createUser(DBno,obj);
+        return ResponseEntity.status(HttpStatus.OK).body(service.createUser(1,obj));
     }
 
     @GetMapping("/allUsers/{DBno}")
@@ -52,7 +53,7 @@ public class userController {
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You have given wrong DB number , please give from 1 and 2.");
 //        }
 //        return ResponseEntity.status(HttpStatus.OK).body(obj1);
-        return service.getUsers(DBno);
+        return ResponseEntity.status(HttpStatus.OK).body(service.getUsers(DBno));
     }
 
     @PutMapping("/update/{userName}")
@@ -76,15 +77,14 @@ public class userController {
 //        }
 //        userOptional.get(0).setFullName(newStr);
 //        Model1 savedData=db1.save(userOptional.get(0));
-//        return ResponseEntity.status(HttpStatus.OK).body(savedData);
-        return service.update(userName);
+        return ResponseEntity.status(HttpStatus.OK).body(service.update(userName));
     }
 
     @DeleteMapping("/delete/{userName}")
     public ResponseEntity<String> deleteByEmpId(@PathVariable String userName){
 //        db1.deleteByUserName(userName);
-//        return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully.");
-        return service.deleteByEmpId(userName);
+
+        return ResponseEntity.status(HttpStatus.OK).body(service.deleteByEmpId(userName));
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.MultiTenent;
+package com.example.MultiTenent.unitTest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

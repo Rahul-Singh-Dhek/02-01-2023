@@ -1,11 +1,9 @@
-package com.example.MultiTenent.Services;
+package com.example.MultiTenent.unitTest.Services;
 
-import com.example.MultiTenent.Models.Model1;
-import com.example.MultiTenent.Repositorys.db1Repository.db1Repository;
-import com.example.MultiTenent.Repositorys.db2Repository.db2Repository;
+import com.example.MultiTenent.unitTest.Models.Model1;
+import com.example.MultiTenent.unitTest.Repositorys.db1Repository.db1Repository;
+import com.example.MultiTenent.unitTest.Repositorys.db2Repository.db2Repository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +16,8 @@ public class userService {
     private db1Repository db1;
     @Autowired
     private db2Repository db2;
-    public ResponseEntity<?> createUser(int DBno , Model1 obj){
-        Model1 obj1;
+    public Model1 createUser(int DBno , Model1 obj){
+        Model1 obj1 = null;
         try {
 
             if (DBno == 0) {
@@ -32,24 +30,23 @@ public class userService {
                 obj1 = db1.save(obj);
             }
         }catch (org.springframework.dao.DuplicateKeyException ex){
-            return ResponseEntity.status(HttpStatus.OK).body("Please provide unique userName");
+//            return ResponseEntity.status(HttpStatus.OK).body("Please provide unique userName");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(obj1);
+        return obj1;
     }
 
-    public ResponseEntity<?> getUsers(int DBno){
+    public List<Model1>  getUsers(int DBno){
         List<Model1> obj1=null;
         if(DBno==1){
             obj1= db1.findAll();
         }else if(DBno==2){
             obj1= db2.findAll();
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You have given wrong DB number , please give from 1 and 2.");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(obj1);
+        return obj1;
     }
 
-    public ResponseEntity<Model1> update( String userName){
+    public Model1 update( String userName){
+        System.out.println("hello");
         List<Model1> userOptional = db1.findByUserName(userName);
         String fullName = userOptional.get(0).getFullName();
         String newStr = "";
@@ -69,11 +66,12 @@ public class userService {
         }
         userOptional.get(0).setFullName(newStr);
         Model1 savedData=db1.save(userOptional.get(0));
-        return ResponseEntity.status(HttpStatus.OK).body(savedData);
+//        return userOptional.get(0);
+        return savedData;
     }
 
-    public ResponseEntity<String> deleteByEmpId( String userName){
+    public String deleteByEmpId( String userName){
         db1.deleteByUserName(userName);
-        return ResponseEntity.status(HttpStatus.OK).body("Deleted Successfully.");
+        return "SuccessFully Deleted";
     }
 }

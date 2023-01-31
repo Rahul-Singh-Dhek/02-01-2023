@@ -1,4 +1,4 @@
-package com.example.MultiTenent.Models;
+package com.example.MultiTenent.unitTest.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,17 +7,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Collection;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection="rahulUser")
 public class Model1 {
-
     @Id
     private String id;
-
     @Indexed(unique = true)
     private String userName;
     private String fullName;

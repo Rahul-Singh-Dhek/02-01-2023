@@ -1,4 +1,4 @@
-package com.example.MultiTenent.configurations;
+package com.example.MultiTenent.unitTest.configurations;
 
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
